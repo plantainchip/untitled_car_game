@@ -39,7 +39,7 @@ scene("game", () => {
         sprite("onion"),
         opacity(0.5),
         scale(0.6),
-        pos(90,0),
+        pos(240,0),
         area(),
         body(),
         anchor("center"),
@@ -55,28 +55,30 @@ scene("game", () => {
         color(127, 200, 255),
     ]);
 
-    // camera following player
+    // camera following invisible player
     onKeyDown("space", () => {
-        invisible_player.move(SPEED, 0)
-    })
-
-    invisible_player.onUpdate(() => {
-        setCamPos(invisible_player.pos)
-        if((invisible_player.pos.x - player.pos.x) >= 240){
-            // invisible_player.onUpdate.cancel();
-            // debug.log(invisible_player.pos)
-
-            // NOTE TO SELF - make this into another function???
-            debug.log("player= " + player.pos.x + " cam= " + invisible_player.pos.x + " distance= " + (invisible_player.pos.x - player.pos.x))
+        if((invisible_player.pos.x - player.pos.x) <= 240){
+            invisible_player.move(SPEED, 0)
         }
-        // debug.log("player= " + player.pos.x + " cam= " + invisible_player.pos.x + " distance= " + (invisible_player.pos.x - player.pos.x))
     })
-    // make this into an event and then cancel it
-    // https://kaplayjs.com/doc/KEventController/
+    // camera position
+    invisible_player.onUpdate(() => {
+        if((invisible_player.pos.x - player.pos.x) <= 240){
+            setCamPos(invisible_player.pos.x - 100, invisible_player.pos.y) // updates cam
+            // debug.log(invisible_player.pos.x.toFixed(0) + " " + invisible_player.pos.y.toFixed(0));
+        }
+    })
 
-    // woke up and foud this
-    // https://kaplayjs.com/doc/ctx/cancel/
+    // player running
+    onKeyDown("d", () => {
+            player.move(SPEED, 0)
+    });
+    onKeyDown("a", () => {
+        player.move(-SPEED, 0)
+    });
 
+    
+ 
 })
 
 
