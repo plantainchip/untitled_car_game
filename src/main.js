@@ -2,6 +2,8 @@ import kaplay from "kaplay";
 import "kaplay/global"; // uncomment if you want to use without the k. prefix
 
 import tutorial from "./scenes/tutorial";
+import demo from "./scenes/demo";
+
 
 // const k = kaplay();
 kaplay({
@@ -21,6 +23,6 @@ loadSprite("platform","./sprites/tutorial_platform.png");
 onClick(() => addKaboom(mousePos()));
 
 
-scene("tutorial", tutorial)
+scene("demo", demo)
 
-go("tutorial");
+go("demo");

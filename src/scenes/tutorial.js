@@ -4,9 +4,10 @@ export default function() {
 
     loadSprite("hand","./sprites/hand_still1.png");
     loadSprite("test_level","./sprites/test_level.png");
+    loadSprite("car", "./sprites/red_car.png");
 
     let SPEED = 200;
-    setGravity(1650);
+    setGravity(2000);
     setCamScale(1.5);
     
     // level design
@@ -15,12 +16,11 @@ export default function() {
         pos(0, height() - 80),
         anchor("left"),
         body({ isStatic: true }),
-        layer("foreground")
+        layer("background"),
+        scale(1.2),
     ]);
 
-    layer(["background", "game", "foreground"], "game")
-
-
+    layer(["background", "game", "foreground"])
 
     // player
     const player = add([
@@ -42,7 +42,7 @@ export default function() {
         area(),
         body(),
         anchor("center"),
-        layer("game")
+        layer("foreground")
     ])
 
     // platform floor
@@ -79,5 +79,42 @@ export default function() {
     onKeyDown("a", () => {
         player.move(-SPEED, 0)
     });
+
+    onKeyPress("w", () => {
+        if(player.isGrounded() ){
+            player.jump();
+        }
+    })
+
+    let max = 4;
+    // MOVING CARS
+    function spawnBox() {
+        max -= 0.1;
+        const box = add([
+            sprite("car"),
+            area(),
+            pos(400, height()),
+            anchor("botleft"),
+            move(LEFT, 240),
+            offscreen(), 
+            "obstacle",
+        ]);
+
+        // if player dodges box and it moves off screen
+        box.onUpdate(() => {
+            if(box.pos.x <= -100) {
+                box.destroy();
+            }
+        });
+
+        if (max <= 1){
+            max = 3;    
+        }
+
+        wait(rand(1, max), () => {
+            spawnBox();
+        });
+    }
+    spawnBox();
 
 }
