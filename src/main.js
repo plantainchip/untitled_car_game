@@ -9,7 +9,7 @@ import demo from "./scenes/demo";
 kaplay({
     width: 512,
     height: 448,
-    background: [0, 0, 255,],
+    background: [255, 255, 255,],
     scale: 1,
 })
 
