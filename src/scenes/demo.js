@@ -12,14 +12,13 @@ export default function() {
     loadSprite("midground","./sprites/demo_midground.png");
     loadSprite("sky","./sprites/demo_sky.png");
 
-
     // setting up variables
     let SPEED = 300;
     setGravity(2000);
     // setCamScale(1);
 
     // creating level 00 - demo +++++++++++++++++++++++++++++++
-    layer(["background", "game", "foreground"])
+
 
     //the background =========================================
     add([
@@ -227,12 +226,7 @@ export default function() {
     //     debug.log(" ")
     // })
 
-    const window_frame = add([ 
-        sprite("border"),
-        scale(2),
-        pos(0,0),
-        body({isStatic: true})
-    ])
+    
 
     // hand movement logic ----------------
 
@@ -330,7 +324,6 @@ export default function() {
     // camera logic to follow cam ---------------------------
     onKeyDown("right", () => {
         if(invisible_player.pos.x <= 3500){
-            //2736
             if((invisible_player.pos.x - player.pos.x) <= 199){
             invisible_player.move(SPEED-50, 0);
             window_frame.move(SPEED-50,0)
@@ -367,7 +360,6 @@ export default function() {
             anchor("botleft"),
             move(LEFT, 260),
             offscreen(), 
-            "obstacle",
         ]);
 
         // if player dodges box and it moves off screen
@@ -403,6 +395,14 @@ export default function() {
 
 
     spawnCar();
+
+    const window_frame = add([ 
+        sprite("border"),
+        scale(2),
+        pos(0,0),
+        body({isStatic: true}),
+        z(10)
+    ])
     
 
 }
