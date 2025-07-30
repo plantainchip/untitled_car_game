@@ -60,7 +60,7 @@ export default function() {
         pos(50,280),
     ])
     add([
-        text("left arrow to move car",{
+        text("right arrow to move car",{
             size:16,
         }),
         pos(50,300),
